@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python
 import requests
 import sys
 import socket
