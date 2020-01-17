@@ -198,7 +198,7 @@ def whois_lookup(domainname):
             results = obj.lookup_whois()
             domain_asnid = "AS" + results['asn']
             if domain_asnid == "":
-                domain_asnid = ""
+                domain_asnid = "- -"
             try:
                 domain_country = results['asn_country_code']
                 if domain_country == "":
@@ -208,7 +208,7 @@ def whois_lookup(domainname):
                 pass
             try:
                 domain_asn_name = results['nets'][0]['name']
-                if domain_asn_name == "":
+                if domain_asn_name == "" or 'None':
                     domain_asn_name = "- -"
             except:
                 domain_asn_name = "- -"
@@ -269,11 +269,15 @@ def whois_lookup(domainname):
         gsb_status = ""
         gsb_platforms = ""
         gsb_threats = ""
-    output = domainname + ";" + orgname1 + ";"  + registrant_name1 + ";" + registrant_email1 + ";" + registrant_email2 + ";" + registrant_email3 + ";" + registrant_email4 + ";" + registrant_country + ";" + whois_city + ";" + whois_zipcode+ ";" +  nameserver1 + ";" + nameserver2 + ";" +  domain_ipaddr + ";" + domain_asnid + ";" + domain_asn_name + ";" + domain_country + ";" + gsb_status + ";" + gsb_platforms + ";" + gsb_threats + ";" + fortiguard + ";" + urlvoid_bl + ";" + siteadvisor_bl + "\n"
-    filename1 =  "WABBIT-LOOKUP-RESULTS.csv"
-    with open (filename1, "a") as outputfile:
-        outputfile.write(output)
-    output = ""
+    try:
+        output = domainname + ";" + orgname1 + ";"  + registrant_name1 + ";" + registrant_email1 + ";" + registrant_email2 + ";" + registrant_email3 + ";" + registrant_email4 + ";" + registrant_country + ";" + whois_city + ";" + whois_zipcode+ ";" +  nameserver1 + ";" + nameserver2 + ";" +  domain_ipaddr + ";" + domain_asnid + ";" + domain_asn_name + ";" + domain_country + ";" + gsb_status + ";" + gsb_platforms + ";" + gsb_threats + ";" + fortiguard + ";" + urlvoid_bl + ";" + siteadvisor_bl + "\n"
+        filename1 =  "WABBIT-LOOKUP-RESULTS.csv"
+        with open (filename1, "a") as outputfile:
+            outputfile.write(output)
+        output = ""
+    except:
+        pass
+        print("!!!!     ERROR     !!!!")
 
 inputfile = open(targets, "r")
 all_doms = inputfile.readlines()
