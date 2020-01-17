@@ -1,6 +1,8 @@
 # wabbit
 Python2 script that will perform a bulk Domain Whois & ASN Lookup along with Blacklist check based on provided list of domain names.
 
+(W)hois (A)sn (B)lacklist (B)ulk (I)nquiry (T)ool
+
      Language: Python 2
      Libraries: requests, sys, socket, whois, IPWhois, BeautifulSoup, json, pysafebrowsing
      Purpose: OSINT - Whois, ASN & Blacklist Checker
