@@ -223,7 +223,7 @@ def whois_lookup(domainname):
         domain_asnid = "- -"
         domain_country = "- -"
         domain_asn_name = "- -"
-    #################### BLACKLIST FUNCTION BELOW ##################
+    #################### BLOCKLIST FUNCTION BELOW ##################
     try:
         url = "https://www.urlvoid.com/scan/" + domainname + "/"
         results = requests.get(url, headers=user_agent).content
