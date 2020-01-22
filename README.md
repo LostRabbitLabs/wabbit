@@ -24,9 +24,10 @@ Follow the steps below to install 'wabbit'.
 Simply provide a target file with one (1) domain name per line and run the script.
 
      ./wabbit.py targets.txt
+     ./wabbit-ip.py targets.txt
 
 
-SAMPLE targets.txt:
+SAMPLE targets.txt (NOTE: use IP ADDRESSES for wabbit-ip.py):
 
      example.com
      example2.com
