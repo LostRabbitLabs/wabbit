@@ -40,7 +40,7 @@ print("                  .;d00000XXNMMWN0l'.                      ")
 print("               .,l0NXKOd;..',:lk0KXXkc.                    ")
 print("               :xdc:'.          ..,:ldd'                   \n\n")
 
-print ("(W)hois (A)SN (B)lacklist (B)ulk (I)nquiry (T)ool\n")
+print ("(W)hois (A)SN (B)locklist (B)ulk (I)nquiry (T)ool\n")
 print ("Now running lookups...")
 print ("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-")
 
