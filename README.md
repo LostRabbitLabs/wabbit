@@ -1,11 +1,11 @@
 # wabbit
-Python2 script that will perform a bulk Domain Whois & ASN Lookup along with Blacklist check based on provided list of domain names.
+Python2 script that will perform a bulk Domain Whois & ASN Lookup along with Blocklist check based on provided list of domain names.
 
-(W)hois (A)sn (B)lacklist (B)ulk (I)nquiry (T)ool
+(W)hois (A)sn (B)locklist (B)ulk (I)nquiry (T)ool
 
      Language: Python 2
      Libraries: requests, sys, socket, whois, IPWhois, BeautifulSoup, json, pysafebrowsing
-     Purpose: OSINT - Whois, ASN & Blacklist Checker
+     Purpose: OSINT - Whois, ASN & Blocklist Checker
 
 
 # Install
@@ -38,7 +38,7 @@ When completed will create a CSV output file with the following information per 
 
      Domain Whois Lookup
      ASN/IPWhois Lookup
-     Blacklist Lookup (URLVoid, SiteAdvisor, Fortiguard, and optionally Google Safe Browsing API v4)
+     Blocklist Lookup (URLVoid, SiteAdvisor, Fortiguard, and optionally Google Safe Browsing API v4)
 
 # Bonus
 In order to use the Google Safe Browsing API you need to modify the 'gsb_apikey' value in wabbit.py. More information about GSB API v4 below:
