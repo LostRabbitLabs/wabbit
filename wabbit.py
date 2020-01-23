@@ -270,7 +270,25 @@ def whois_lookup(domainname):
         gsb_platforms = ""
         gsb_threats = ""
     try:
-        output = domainname + ";" + orgname1 + ";"  + registrant_name1 + ";" + registrant_email1 + ";" + registrant_email2 + ";" + registrant_email3 + ";" + registrant_email4 + ";" + registrant_country + ";" + whois_city + ";" + whois_zipcode+ ";" +  nameserver1 + ";" + nameserver2 + ";" +  domain_ipaddr + ";" + domain_asnid + ";" + domain_asn_name + ";" + domain_country + ";" + gsb_status + ";" + gsb_platforms + ";" + gsb_threats + ";" + fortiguard + ";" + urlvoid_bl + ";" + siteadvisor_bl + "\n"
+        url5 = "https://www.abuseipdb.com/check/" + domainname
+        results5 = requests.get(url5, headers=user_agent).content
+        soup5 = BeautifulSoup(results5, 'html.parser')
+        abusedb_status = soup5.find_all('h3')[0].contents[2].encode("ascii").strip().encode("ascii").strip(" <tr>")
+        if abusedb_status == "was found in our database!":
+            abusedb_reported = soup5.find('div',{'class':'well'}).contents[3].contents[1].encode("ascii").split("</")[0].strip("<b>")
+            abusedb_confidence = soup5.find('div',{'class':'well'}).contents[3].contents[3].encode("ascii").split("</")[0].strip("<b>")
+            print("ABUSEDB : " + abusedb_status + " || " + abusedb_reported + " || " + abusedb_confidence)
+        else:
+            abusedb_status = ""
+            abusedb_reported = ""
+            abusedb_confidence = ""
+    except:
+        pass
+        abusedb_status = ""
+        abusedb_reported = ""
+        abusedb_confidence = ""
+    try:
+        output = domainname + ";" + orgname1 + ";"  + registrant_name1 + ";" + registrant_email1 + ";" + registrant_email2 + ";" + registrant_email3 + ";" + registrant_email4 + ";" + registrant_country + ";" + whois_city + ";" + whois_zipcode+ ";" +  nameserver1 + ";" + nameserver2 + ";" +  domain_ipaddr + ";" + domain_asnid + ";" + domain_asn_name + ";" + domain_country + ";" + gsb_status + ";" + gsb_platforms + ";" + gsb_threats + ";" + fortiguard + ";" + urlvoid_bl + ";" + siteadvisor_bl + ";" + abusedb_status + ";" + abusedb_reported + ";" + abusedb_confidence + "\n"
         filename1 =  "WABBIT-LOOKUP-RESULTS.csv"
         with open (filename1, "a") as outputfile:
             outputfile.write(output)
