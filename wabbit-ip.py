@@ -160,5 +160,7 @@ for ipaddr in all_ipaddrs:
     print ("\n" + ipaddr + ":")
     whois_lookup(ipaddr)
 
+print ("\n\n-=-=-=-=-   WABBIT HAS COMPLETED ALL IP LOOKUPS!  -=-=-=-=-\n\n")
+    
 sys.exit()
 
