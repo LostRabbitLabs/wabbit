@@ -1,9 +1,9 @@
 # wabbit
-Python2 script that will perform a bulk Domain Whois & ASN Lookup along with Blocklist check based on provided list of domain names.
+Python3 script that will perform a bulk Domain Whois & ASN Lookup along with Blocklist check based on provided list of domain names.
 
 (W)hois (A)sn (B)locklist (B)ulk (I)nquiry (T)ool
 
-     Language: Python 2
+     Language: Python 3
      Libraries: requests, sys, socket, python-whois, IPWhois, BeautifulSoup, json, pysafebrowsing
      Purpose: OSINT - Whois, ASN & Blocklist Checker
 
@@ -14,10 +14,10 @@ Follow the steps below to install 'wabbit'.
      git clone https://github.com/lostrabbitlabs/wabbit
      cd wabbit
      chmod 655 wabbit.py
-     pip install python-whois
-     pip install IPWhois
-     pip install bs4
-     pip install pysafebrowsing
+     pip3 install python-whois
+     pip3 install IPWhois
+     pip3 install bs4
+     pip3 install pysafebrowsing
 
 
 # Usage
