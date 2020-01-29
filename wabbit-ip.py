@@ -88,9 +88,10 @@ def whois_lookup(ipaddr):
         t = soup.find('span',{'class':'label-danger'})
         urlvoid_bl = "URLVOID: " + t.text
         print(urlvoid_bl)
+        #return urlvoid_bl
     except:
-        pass
         urlvoid_bl = ""
+        pass
     try:
         url2 = "https://fortiguard.com/webfilter?q=" + ipaddr + "&version=8"
         results2 = requests.get(url2, headers=user_agent).content
@@ -98,9 +99,10 @@ def whois_lookup(ipaddr):
         t2 = soup2.find("meta", property="description")
         fortiguard = "FORTIGUARD " + str(t2["content"]) 
         print(fortiguard)
+        #return fortiguard
     except:
-        pass
         fortiguard = ""
+        pass
     try:
         url3 = "http://www.siteadvisor.com/sitereport.html?url=" + ipaddr
         results3 = requests.get(url3, headers=user_agent).content
@@ -108,39 +110,42 @@ def whois_lookup(ipaddr):
         t3 = soup3.find('a').contents[0]
         siteadvisor_bl = "SITEADVISOR: " + str(t3)
         print(siteadvisor_bl)
+        #return fortiguard
     except:
-        pass
         siteadvisor_bl = ""
+        pass
     try:
         gsb_lookup = SafeBrowsing(gsb_apikey)
         results4 = gsb_lookup.lookup_urls([ipaddr])
         gsb_status = str(results4[ipaddr]['malicious'])
-        gsb_platforms = results4[ipaddr]['platforms'][0].encode("ascii")
-        gsb_threats = results4[ipaddr]['threats'][0].encode("ascii")
+        gsb_platforms = results4[ipaddr]['platforms'][0]
+        gsb_threats = results4[ipaddr]['threats'][0]
         print("GOOGLE SAFE BROWSING API4: " + gsb_status + " || " + gsb_platforms + " || " + gsb_threats)
     except:
-        pass
         gsb_status = ""
         gsb_platforms = ""
         gsb_threats = ""
+        pass
     try:
         url5 = "https://www.abuseipdb.com/check/" + ipaddr
         results5 = requests.get(url5, headers=user_agent).content
         soup5 = BeautifulSoup(results5, 'html.parser')
-        abusedb_status = soup5.find_all('h3')[0].contents[2].encode("ascii").strip().encode("ascii").strip(" <tr>")
+        abusedb_status = soup5.find_all('h3')[0].contents[2].strip().strip(" <tr>")
         if abusedb_status == "was found in our database!":
-            abusedb_reported = soup5.find('div',{'class':'well'}).contents[3].contents[1].encode("ascii").split("</")[0].strip("<b>")
-            abusedb_confidence = soup5.find('div',{'class':'well'}).contents[3].contents[3].encode("ascii").split("</")[0].strip("<b>")
+            abusedb_reported = soup5.find('div',{'class':'well'}).contents[3].contents[1].contents[0]
+            abusedb_reported = str(abusedb_reported)
+            abusedb_confidence = soup5.find('div',{'class':'well'}).contents[3].contents[3].contents[0]
+            abusedb_confidence = str(abusedb_confidence)
             print("ABUSEDB : " + abusedb_status + " || " + abusedb_reported + " || " + abusedb_confidence)
         else:
             abusedb_status = ""
             abusedb_reported = ""
             abusedb_confidence = ""
     except:
-        pass
         abusedb_status = ""
         abusedb_reported = ""
         abusedb_confidence = ""
+        pass
     try:    
         output = ipaddr + ";" + domain_asnid + ";" + domain_asn_name + ";" + domain_country + ";" + gsb_status + ";" + gsb_platforms + ";" + gsb_threats + ";" + fortiguard + ";" + siteadvisor_bl + ";" + abusedb_status + ";" + abusedb_reported + ";" + abusedb_confidence + "\n"
     except:
