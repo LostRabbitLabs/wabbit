@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 import requests
 import sys
 import socket
@@ -85,8 +85,8 @@ def whois_lookup(domainname):
             except:
                 pass
         except:
-            pass
             created_date = "1969-12-31 00:00:00"
+            pass
         try:
             expired_date = w.expiration_date
             try:
@@ -95,77 +95,102 @@ def whois_lookup(domainname):
             except:
                 pass
         except:
-            pass
             expired_date = "1969-12-23 00:00:00"
-        try:
-            registrant_name1 = w.name.encode("ascii")
-        except:
             pass
-            registrant_name1 = ""
         try:
-            registrant_address = w.address.encode("ascii")
+            registrant_name1 = w.name
+            if not registrant_name1:
+                registrant_name1 = ""
+        except:
+            registrant_name1 = ""
+            pass
+        try:
+            registrant_address = w.address
+            if not registrant_address:
+                registrant_address = ""
         except:
             pass
             registrant_address = ""
         try:
-            registrant_country = w.country.encode("ascii")
+            registrant_country = w.country
+            registrant_country = str(registrant_country)
+            if not registrant_country:
+                registrant_country = ""
         except:
-            pass
             registrant_country = ""
-        try:
-            state = w.state.encode("ascii")
-        except:
             pass
+        try:
+            state = w.state
+            if not state:
+                state = ""
+        except:
             state = ""
-        try:
-            orgname1 = w.org.encode("ascii")
-        except:
             pass
+        try:
+            orgname1 = w.org
+            if not orgname1:
+                orgname1 = ""
+        except:
             orgname1 = ""
-        try:
-            whois_city = w.city.encode("ascii")
-        except:
             pass
+        try:
+            whois_city = w.city
+            if not whois_city:
+                whois_city = ""
+        except:
             whois_city = ""
-        try:
-            whois_zipcode = w.zipcode.encode("ascii")
-        except:
             pass
+        try:
+            whois_zipcode = w.zipcode
+            if not whois_zipcode:
+                whois_zipcode = ""
+        except:
             whois_zipcode = ""
-        try:
-            whois_registrar = w.registrar.encode("ascii")
-            if len(whois_registrar) < 4:
-                whois_registrar = whois_registrar[0].encode("ascii")
-            whois_ref_url = w.referral_url.encode("ascii")
-        except:
             pass
+        try:
+            whois_registrar = w.registrar
+            if len(whois_registrar) < 4:
+                whois_registrar = whois_registrar[0]
+            whois_ref_url = w.referral_url
+        except:
             whois_registrar = ""
             whois_ref_url = ""
-        try:
-            nameservers = w.name_servers.encode("ascii")
-        except:
             pass
+        try:
+            nameservers = w.name_servers
+            if not nameservers:
+                nameservers = ""
+        except:
             nameservers = ""
-        try:
-            nameserver1 = w.name_servers[0].encode("ascii")
-        except:
             pass
+        try:
+            nameserver1 = w.name_servers[0]
+            if not nameserver1:
+                nameserver1 = ""
+        except:
             nameserver1 = ""
-        try:
-            nameserver2 = w.name_servers[1].encode("ascii")
-        except:
             pass
+        try:
+            nameserver2 = w.name_servers[1]
+            if not nameserver2:
+                nameserver2 = ""
+        except:
             nameserver2 = ""
-        try:
-            nameserver3 = w.name_servers[2].encode("ascii")
-        except:
             pass
+        try:
+            nameserver3 = w.name_servers[2]
+            if not nameserver3:
+                nameserver3 = ""
+        except:
             nameserver3 = ""
-        try:
-            nameserver4 = w.name_servers[3].encode("ascii")
-        except:
             pass
+        try:
+            nameserver4 = w.name_servers[3]
+            if not nameserver4:
+                nameserver4 = ""
+        except:
             nameserver4 = ""
+            pass
         try:
             registrant_emails = w.emails
             if len(registrant_emails) > 5:
@@ -191,8 +216,8 @@ def whois_lookup(domainname):
         try:
             domain_ipaddr = socket.gethostbyname(domainname)
         except:
-            pass
             domain_ipaddr = "- -"
+            pass
         if domain_ipaddr != "- -":
             obj = IPWhois(domain_ipaddr)
             results = obj.lookup_whois()
@@ -218,11 +243,11 @@ def whois_lookup(domainname):
             domain_country = "- -"
             domain_asn_name = "- -"
     except:
-        pass
         domain_asnid = "- -"
         domain_asnid = "- -"
         domain_country = "- -"
         domain_asn_name = "- -"
+        pass
     #################### BLOCKLIST FUNCTION BELOW ##################
     try:
         url = "https://www.urlvoid.com/scan/" + domainname + "/"
@@ -233,8 +258,8 @@ def whois_lookup(domainname):
         print(urlvoid_bl)
         #return urlvoid_bl
     except:
-        pass
         urlvoid_bl = ""
+        pass
     try:
         url2 = "https://fortiguard.com/webfilter?q=" + domainname + "&version=8"
         results2 = requests.get(url2, headers=user_agent).content
@@ -244,8 +269,8 @@ def whois_lookup(domainname):
         print(fortiguard)
         #return fortiguard
     except:
-        pass
         fortiguard = ""
+        pass
     try:
         url3 = "http://www.siteadvisor.com/sitereport.html?url=" + domainname
         results3 = requests.get(url3, headers=user_agent).content
@@ -255,38 +280,40 @@ def whois_lookup(domainname):
         print(siteadvisor_bl)
         #return fortiguard
     except:
-        pass
         siteadvisor_bl = ""
+        pass
     try:
         gsb_lookup = SafeBrowsing(gsb_apikey)
         results4 = gsb_lookup.lookup_urls([domainname])
         gsb_status = str(results4[domainname]['malicious'])
-        gsb_platforms = results4[domainname]['platforms'][0].encode("ascii")
-        gsb_threats = results4[domainname]['threats'][0].encode("ascii")
+        gsb_platforms = results4[domainname]['platforms'][0]
+        gsb_threats = results4[domainname]['threats'][0]
         print("GOOGLE SAFE BROWSING API4: " + gsb_status + " || " + gsb_platforms + " || " + gsb_threats)
     except:
-        pass
         gsb_status = ""
         gsb_platforms = ""
         gsb_threats = ""
+        pass
     try:
         url5 = "https://www.abuseipdb.com/check/" + domainname
         results5 = requests.get(url5, headers=user_agent).content
         soup5 = BeautifulSoup(results5, 'html.parser')
-        abusedb_status = soup5.find_all('h3')[0].contents[2].encode("ascii").strip().encode("ascii").strip(" <tr>")
+        abusedb_status = soup5.find_all('h3')[0].contents[2].strip().strip(" <tr>")
         if abusedb_status == "was found in our database!":
-            abusedb_reported = soup5.find('div',{'class':'well'}).contents[3].contents[1].encode("ascii").split("</")[0].strip("<b>")
-            abusedb_confidence = soup5.find('div',{'class':'well'}).contents[3].contents[3].encode("ascii").split("</")[0].strip("<b>")
+            abusedb_reported = soup5.find('div',{'class':'well'}).contents[3].contents[1].contents[0]
+            abusedb_reported = str(abusedb_reported)
+            abusedb_confidence = soup5.find('div',{'class':'well'}).contents[3].contents[3].contents[0]
+            abusedb_confidence = str(abusedb_confidence)
             print("ABUSEDB : " + abusedb_status + " || " + abusedb_reported + " || " + abusedb_confidence)
         else:
             abusedb_status = ""
             abusedb_reported = ""
             abusedb_confidence = ""
     except:
-        pass
         abusedb_status = ""
         abusedb_reported = ""
         abusedb_confidence = ""
+        pass
     try:
         output = domainname + ";" + orgname1 + ";"  + registrant_name1 + ";" + registrant_email1 + ";" + registrant_email2 + ";" + registrant_email3 + ";" + registrant_email4 + ";" + registrant_country + ";" + whois_city + ";" + whois_zipcode+ ";" +  nameserver1 + ";" + nameserver2 + ";" +  domain_ipaddr + ";" + domain_asnid + ";" + domain_asn_name + ";" + domain_country + ";" + gsb_status + ";" + gsb_platforms + ";" + gsb_threats + ";" + fortiguard + ";" + urlvoid_bl + ";" + siteadvisor_bl + ";" + abusedb_status + ";" + abusedb_reported + ";" + abusedb_confidence + "\n"
         filename1 =  "WABBIT-LOOKUP-RESULTS.csv"
@@ -294,8 +321,8 @@ def whois_lookup(domainname):
             outputfile.write(output)
         output = ""
     except:
-        pass
         print("!!!!     ERROR     !!!!")
+        pass
 
 inputfile = open(targets, "r")
 all_doms = inputfile.readlines()
@@ -311,4 +338,3 @@ for domainname in all_doms:
 print ("\n\n-=-=-=-=-   WABBIT HAS COMPLETED ALL LOOKUPS!  -=-=-=-=-\n\n")
 
 sys.exit()
-
